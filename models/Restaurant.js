@@ -25,6 +25,16 @@ const RestaurantSchema = new Schema({
         ref: 'food listing',
         required: true
     }],
+    currentOrders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'order',
+        required: true
+    }],
+    pastOrders: [{
+        type: Schema.Types.ObjectId,
+        ref: 'order',
+        required: true
+    }]
 })
 
 const Restaurant = mongoose.model('restaurant', RestaurantSchema);

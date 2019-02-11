@@ -7,7 +7,7 @@ const OrderSchema = new Schema({
     readyTime: { type: Date, required: true },
     pickedUpTime: { type: Date, required: true },
     deliveredTime: { type: Date, required: true },
-    userID: { type: String, required: true },
+    customerID: { type: String, required: true },
     driverID: { type: String, required: true },
     expectedDeliveryTime: { type: Date, required: true },
     cartID: { type: String, required: true }
