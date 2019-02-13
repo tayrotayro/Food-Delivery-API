@@ -5,6 +5,6 @@ const FoodListingSchema = new Schema({
     name: { type: String, required: true }
 })
 
-const FoodListing = mongoose.model('food listing', FoodListingSchema);
+const FoodListing = mongoose.model('food-listing', FoodListingSchema);
 
 module.exports = FoodListing;

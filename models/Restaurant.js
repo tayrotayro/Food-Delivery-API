@@ -5,24 +5,19 @@ const RestaurantSchema = new Schema({
     name: { type: String, required: true },
     address: { type: String, required: true },
     phone: { type: String, required: true },
-    description: { type: String, required: true },
-    hours: { type: Date, required: true },
+    description: { type: String, required: false },
+    hours: { type: Date, required: true }, //TODO: Implement Hours schema
     pictureURL: { type: String, required: false },
-    ownerID: [{
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
-    }],
     menuID: {
         type: Schema.Types.ObjectId,
         ref: 'menu',
         required: true
     },
-    type: { type: String, required: true },
-    price: { type: String, required: true },
+    // type: { type: String, required: true },
+    price: { type: Number, required: true }, // 1-4 dollar signs
     foodListings: [{
         type: Schema.Types.ObjectId,
-        ref: 'food listing',
+        ref: 'food-listing',
         required: true
     }],
     currentOrders: [{
