@@ -3,10 +3,6 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/BaseUser');
 
-/*
-** --TAM--
-** Authenticate user via email and password
-*/
 router.post('/api/signin', (req, res) => {
     User.findOne({ email: req.body.email })
         .then((user) => {

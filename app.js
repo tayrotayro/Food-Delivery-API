@@ -43,12 +43,11 @@ app.use(function(req, res, next) {
 
 //Allow CORS
 var allowCrossDomain = function (req, res, next) {
-  var allowedOrigins = ['http://localhost:3000', 'https://orgcom.herokuapp.com'];
+  var allowedOrigins = ['http://localhost:3000', 'https://example.com'];
   var origin = req.headers.origin;
   if (allowedOrigins.indexOf(origin) > -1) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
-  // res.header('Access-Control-Allow-Origin', "http://localhost:3001, https://app.aquagrow.life");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
