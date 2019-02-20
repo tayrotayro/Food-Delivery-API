@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "start-dev": "nodemon ./bin/www"
   },
   "dependencies": {
-    "bcrypt": "^3.0.3",
+    "bcrypt": "^3.0.4",
+    "bcryptjs": "^2.4.3",
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",

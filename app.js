@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
+
 
 //Taylor -- Import mongoose and database config
 var mongoose = require('mongoose');
@@ -11,6 +13,8 @@ var databaseConfig = require('./config/db');
 
 //Taylor -- location to import the router for each file in the "routes" folder
 var index = require('./routes/index');
+var authorization = require('./routes/authorization');
+var user = require('./routes/users');
 
 
 var app = express();
@@ -27,11 +31,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Tayro -- make sure app.js is using routes files
 app.use('/', index);
+app.use('/', authorization);
+app.use('/', user);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+//Allow CORS
+var allowCrossDomain = function (req, res, next) {
+  var allowedOrigins = ['http://localhost:3000', 'https://orgcom.herokuapp.com'];
+  var origin = req.headers.origin;
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  // res.header('Access-Control-Allow-Origin', "http://localhost:3001, https://app.aquagrow.life");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}
+
+app.use(allowCrossDomain);
 
 // error handler
 app.use(function(err, req, res, next) {

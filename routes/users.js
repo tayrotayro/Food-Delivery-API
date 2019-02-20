@@ -1,16 +1,18 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/user');
+const { BaseUser, Customer, Driver, Owner} = require('../models/BaseUser');
+
 
 /* Tayro -- POST Route: create/sign up a new user */
 router.post('/api/user', function (req, res) {
-	const newUser = new User({
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
+	const newUser = new BaseUser({
+		name: req.body.name,
+		phone: req.body.phone,
 		email: req.body.email,
+		password: req.body.password
 	})
 
-	User.find({ email: req.body.email })
+	BaseUser.find({ email: req.body.email })
 		.count()
 		.then(count => {
 			if (count > 0) {
