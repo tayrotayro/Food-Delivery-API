@@ -10,16 +10,25 @@ const OrderSchema = new Schema({
     expectedDeliveryTime: { type: Date, required: true },
     orderTime: { type: Date, required: true },
     readyTime: { type: Date, required: false },
-    pickedUpTime: { type: Date, required: false },
-    deliveredTime: { type: Date, required: false },
-    // customerID: { type: String, required: true },  //TODO: reference customer and driver ID
-    // driverID: { type: String, required: true },
-    cartID: { type: String, required: true },
-    restaurantID: {
+    enrouteTime: { type: Date, required: false },
+    actualDeliveryTime: { type: Date, required: false },
+    customer: {
         type: Schema.Types.ObjectId,
-        ref: 'restaurant',
+        ref: 'user',
         required: true
-    }
+    },
+    driver: {
+        type: Schema.Types.ObjectId,
+        ref: 'driver',
+        required: true
+    },
+    cartID: {
+        type: Schema.Types.ObjectId,
+        ref: 'cart',
+        required: true
+    },
+    totalPrice: { type: Number, required: true },
+    tip: { type: Number, required: false }
 })
 
 const Order = mongoose.model('order', OrderSchema);

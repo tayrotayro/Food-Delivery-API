@@ -16,8 +16,21 @@ var index = require('./routes/index');
 var authorization = require('./routes/authorization');
 var user = require('./routes/users');
 
-
 var app = express();
+
+// Allow CORS
+var allowCrossDomain = function (req, res, next) {
+  var allowedOrigins = ['http://localhost:3000'];
+  var origin = req.headers.origin;
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+}
+
+app.use(allowCrossDomain);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,25 +48,13 @@ app.use('/', authorization);
 app.use('/', user);
 
 
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
 
-//Allow CORS
-var allowCrossDomain = function (req, res, next) {
-  var allowedOrigins = ['http://localhost:3000', 'https://example.com'];
-  var origin = req.headers.origin;
-  if (allowedOrigins.indexOf(origin) > -1) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-}
-
-app.use(allowCrossDomain);
 
 // error handler
 app.use(function(err, req, res, next) {

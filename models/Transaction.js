@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TransactionSchema = new Schema({
-    orderId: {
+    order: {
         type: Schema.Types.ObjectId,
         ref: 'order',
         required: true
@@ -10,7 +10,7 @@ const TransactionSchema = new Schema({
     cardNumber: { type: String, required: true },
     expMonth: { type: String, required: true },
     expYear: { type: String, required: true },
-    CCV: { type: String, required: true },
+    ccv: { type: String, required: true },
     billingAddress: {
         type: Schema.Types.ObjectId,
         ref: 'address',
