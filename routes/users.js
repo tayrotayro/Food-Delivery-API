@@ -1,18 +1,21 @@
 var express = require('express');
 var router = express.Router();
-const { BaseUser, Customer, Driver, Owner} = require('../models/BaseUser');
+const User = require('../models/User');
 
 
 /* Tayro -- POST Route: create/sign up a new user */
 router.post('/api/user', function (req, res) {
-	const newUser = new BaseUser({
+	const newUser = new User({
 		name: req.body.name,
 		phone: req.body.phone,
 		email: req.body.email,
-		password: req.body.password
+		password: req.body.password,
+		joinDate: Date.now(),
+		currentOrders: [],
+		pastOrders: []
 	})
 
-	BaseUser.find({ email: req.body.email })
+	User.find({ email: req.body.email })
 		.count()
 		.then(count => {
 			if (count > 0) {
@@ -45,8 +48,8 @@ router.post('/api/user', function (req, res) {
 });
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', function (req, res, next) {
+	res.send('respond with a resource');
 });
 
 module.exports = router;

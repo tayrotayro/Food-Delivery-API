@@ -7,3 +7,10 @@
 
 1. Sign up - 2
 2. Sign in - 2
+
+
+Paul - Redo database schema chart
+Suraj - Burndown chart
+Alex - My restaurants Tab
+
+

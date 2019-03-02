@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const User = require('../models/BaseUser');
+const User = require('../models/User');
 
 router.post('/api/signin', (req, res) => {
     User.findOne({ email: req.body.email })
