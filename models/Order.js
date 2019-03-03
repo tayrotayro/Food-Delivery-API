@@ -20,7 +20,7 @@ const OrderSchema = new Schema({
     driver: {
         type: Schema.Types.ObjectId,
         ref: 'driver',
-        required: true
+        required: false
     },
     cartID: {
         type: Schema.Types.ObjectId,

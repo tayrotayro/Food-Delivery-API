@@ -7,7 +7,7 @@ const DriverSchema = new Schema({
         ref: 'user',
         required: true
     },
-    isActive: { type: Boolean, required: true },
+    // isActive: { type: Boolean, required: true },
     activeOrders: [{
         type: Schema.Types.ObjectId,
         ref: 'order'
