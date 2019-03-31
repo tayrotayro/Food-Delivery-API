@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const DailyHourSchema = new Schema({
     openTime: { type: Number, required: false },
     closeTime: { type: Number, required: false },
-    secondOpenTime: { type: Number, required: false },
-    secondCloseTime: { type: Number, required: false },
+    // secondOpenTime: { type: Number, required: false },
+    // secondCloseTime: { type: Number, required: false },
 })
 
 // Setting a schema virtual property for whether or not the restaurant is Open 
@@ -41,14 +41,14 @@ const RestaurantSchema = new Schema({
     menuID: {
         type: Schema.Types.ObjectId,
         ref: 'menu',
-        required: true
+        required: false
     },
     priceRange: { type: Number, required: true }, // value of 1 to 4 (dollar signs)
-    foodListings: [{
-        type: Schema.Types.ObjectId,
-        ref: 'food-listing',
-        required: true
-    }]
+    // foodListings: [{
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'food-listing',
+    //     required: true
+    // }]
     // type: { type: String, required: true },
     // dietary: { type: String, required: true },
 })

@@ -15,6 +15,7 @@ var databaseConfig = require('./config/db');
 var index = require('./routes/index');
 var authorization = require('./routes/authorization');
 var user = require('./routes/users');
+var restaurant = require('./routes/restaurants');
 
 var app = express();
 
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/', authorization);
 app.use('/', user);
+app.use('/', restaurant);
 
 
 
