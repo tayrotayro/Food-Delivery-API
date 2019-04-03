@@ -1,12 +1,16 @@
 var express = require('express');
 var router = express.Router();
 const Restaurant = require('../models/Restaurant');
+const Owner = require("../models/Owner");
 
-router.post('/api/owner/restaurant', function (req, res) {
+router.post('/api/restaurant', function (req, res) {
+
+    const ownerId = req.body.ownerId;
     const newRestaurant = new Restaurant({
         name: req.body.name,
         address: req.body.address,
         phone: req.body.phone,
+        description: req.body.description,
         hours: {
             mon: {
                 openTime: req.body.monHour[0],
@@ -41,8 +45,12 @@ router.post('/api/owner/restaurant', function (req, res) {
         pastOrders: [],
         priceRange: req.body.priceRange
     })
+    Promise.all([
+        newRestaurant.save(),
+        // Owner.findByIdAndUpdate()
+        /* find user by Id and update restaurants list */
 
-    newRestaurant.save()
+    ])
         .then(() => {
             res.send({
                 message: "Restaurant successfully created",
@@ -54,6 +62,39 @@ router.post('/api/owner/restaurant', function (req, res) {
                 message: err.message,
                 data: null
             });
+        })
+})
+
+/* Get restaurants associated with an owner */
+router.get('/api/restaurant/:baseUserId', function (req, res) {
+    const baseUserId = req.params.baseUserId;
+
+    Owner.find({ baseUserId })
+        .then(owners => {
+            const restaurants = owners[0].restaurants;
+
+            Restaurant.find({
+                '_id': {
+                    $in: restaurants
+                }
+            })
+                .then(foundRestaurants => {
+                    res.send({
+                        message: "Successfully return all restaurants associated with the owner",
+                        data: foundRestaurants
+                    })
+                }).catch(err => {
+                    res.send({
+                        message: err.message,
+                        data: null
+                    })
+                })
+        })
+        .catch(err => {
+            res.send({
+                message: err.message,
+                data: null
+            })
         })
 })
 

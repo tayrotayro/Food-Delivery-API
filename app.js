@@ -16,6 +16,7 @@ var index = require('./routes/index');
 var authorization = require('./routes/authorization');
 var user = require('./routes/users');
 var restaurant = require('./routes/restaurants');
+var owner = require('./routes/owner');
 
 var app = express();
 
@@ -48,18 +49,18 @@ app.use('/', index);
 app.use('/', authorization);
 app.use('/', user);
 app.use('/', restaurant);
-
+app.use('/', owner);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
