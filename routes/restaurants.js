@@ -11,6 +11,7 @@ router.post('/api/restaurant', function (req, res) {
         address: req.body.address,
         phone: req.body.phone,
         description: req.body.description,
+        // pictureURL: req.body.pictureURL,
         hours: {
             mon: {
                 openTime: req.body.monHour[0],
