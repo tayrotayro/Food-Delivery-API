@@ -48,7 +48,7 @@ router.post('/api/restaurant/:id', function (req, res) {
     })
     Promise.all([
         newRestaurant.save(),
-        Owner.findByIdAndUpdate(req.params.id, { $push: { restaurants:  } })
+        Owner.findByIdAndUpdate(req.params.id, { $push: { restaurants: newRestaurant._id } })
     ])
         .then(() => {
             res.send({
