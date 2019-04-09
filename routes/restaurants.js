@@ -4,14 +4,14 @@ const Restaurant = require('../models/Restaurant');
 const Owner = require("../models/Owner");
 
 router.post('/api/restaurant/:id', function (req, res) {
+    const ownerId = req.params.id;
 
-    const ownerId = req.params._id;
     const newRestaurant = new Restaurant({
         name: req.body.name,
         address: req.body.address,
         phone: req.body.phone,
         description: req.body.description,
-        // pictureURL: req.body.pictureURL,
+        pictureURL: req.body.pictureURL,
         hours: {
             mon: {
                 openTime: req.body.monHour[0],
@@ -48,7 +48,7 @@ router.post('/api/restaurant/:id', function (req, res) {
     })
     Promise.all([
         newRestaurant.save(),
-        Owner.findByIdAndUpdate(req.params.id, { $push: { restaurants: newRestaurant._id } })
+        Owner.findOneAndUpdate({baseUserId: ownerId}, { $push: { restaurants: newRestaurant._id } })
     ])
         .then(() => {
             res.send({
@@ -95,6 +95,22 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
                 data: null
             })
         })
+})
+
+router.get('/api/restaurant/getall', function(req, res) {
+    Restaurant.find({})
+		.then(restaurants => {
+			res.send({
+				message: "Successfully get all restaurants",
+				data: restaurants
+			})
+		})
+		.catch(err => {
+			res.send({
+				message: "Get all restaurants failed",
+				data: err.message
+			})
+		})
 })
 
 module.exports = router;
