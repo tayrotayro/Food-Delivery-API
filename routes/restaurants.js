@@ -3,9 +3,9 @@ var router = express.Router();
 const Restaurant = require('../models/Restaurant');
 const Owner = require("../models/Owner");
 
-router.post('/api/restaurant', function (req, res) {
+router.post('/api/restaurant/:id', function (req, res) {
 
-    const ownerId = req.body.ownerId;
+    const ownerId = req.params._id;
     const newRestaurant = new Restaurant({
         name: req.body.name,
         address: req.body.address,
@@ -48,9 +48,7 @@ router.post('/api/restaurant', function (req, res) {
     })
     Promise.all([
         newRestaurant.save(),
-        // Owner.findByIdAndUpdate()
-        /* find user by Id and update restaurants list */
-
+        Owner.findByIdAndUpdate(req.params.id, { $push: { restaurants:  } })
     ])
         .then(() => {
             res.send({
