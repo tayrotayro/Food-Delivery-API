@@ -11,7 +11,7 @@ const CategorySchema = new Schema({
 })
 
 const MenuSchema = new Schema({
-    menuDescription: { type: String, required: false },
+    //menuDescription: { type: String, required: false },
     categories: [CategorySchema]
 })
 

@@ -6,6 +6,9 @@ const Owner = require("../models/Owner");
 router.post('/api/restaurant/:id', function (req, res) {
     const ownerId = req.params.id;
 
+    const newMenu = new Menu({
+    })
+
     const newRestaurant = new Restaurant({
         name: req.body.name,
         address: req.body.address,
@@ -48,6 +51,8 @@ router.post('/api/restaurant/:id', function (req, res) {
     })
     Promise.all([
         newRestaurant.save(),
+        newMenu.save(),
+        Restaurant.findOneAndUpdate({Restaurant: newRestaurant._id}, { $set: { menuID: newMenu._id }}),
         Owner.findOneAndUpdate({baseUserId: ownerId}, { $push: { restaurants: newRestaurant._id } })
     ])
         .then(() => {
@@ -97,20 +102,20 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
         })
 })
 
-router.get('/api/restaurant/getall', function(req, res) {
-    Restaurant.find({})
-		.then(restaurants => {
-			res.send({
-				message: "Successfully get all restaurants",
-				data: restaurants
-			})
-		})
-		.catch(err => {
-			res.send({
-				message: "Get all restaurants failed",
-				data: err.message
-			})
-		})
-})
+// router.get('/api/restaurant/getall', function(req, res) {
+//     Restaurant.find({})
+// 		.then(restaurants => {
+// 			res.send({
+// 				message: "Successfully get all restaurants",
+// 				data: restaurants
+// 			})
+// 		})
+// 		.catch(err => {
+// 			res.send({
+// 				message: "Get all restaurants failed",
+// 				data: err.message
+// 			})
+// 		})
+// })
 
 module.exports = router;
