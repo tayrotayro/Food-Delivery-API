@@ -2,13 +2,22 @@ const express = require('express');
 const router = express.Router();
 const Owner = require('../models/Owner');
 
-router.post('/api/owner/:baseUserId', function (req, res) {
-    const newOwner = new Owner({
-        baseUserId: req.params.baseUserId,
-        restaurants: []
-    })
-
-    newOwner.save()
+//Become an owner from user view --Taylor
+/* Does not function, always says "You are already an owner"   */
+router.post('/api/create-owner/:id', function (req, res) {
+    if (Owner.find({ baseUserId: req.params.id })) {
+        res.send({
+            message: "You are already an owner",
+            data: null
+        })
+        
+    } else {
+        const newOwner = new Owner({
+            baseUserId: req.params.baseUserId,
+            restaurants: []
+        })
+                
+        newOwner.save()
         .then(newOwner => {
             res.send({
                 message: "Successfully become an owner",
@@ -21,6 +30,8 @@ router.post('/api/owner/:baseUserId', function (req, res) {
                 data: null
             })
         })
-})
+    }  
+});
+
 
 module.exports = router;

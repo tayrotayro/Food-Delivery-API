@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 const Restaurant = require('../models/Restaurant');
 const Owner = require("../models/Owner");
+const Menu = require("../models/Menu");
 
 router.post('/api/restaurant/:id', function (req, res) {
     const ownerId = req.params.id;
 
-    const newMenu = new Menu({
-    })
+    const newMenu = new Menu({})
 
     const newRestaurant = new Restaurant({
         name: req.body.name,
@@ -47,12 +47,13 @@ router.post('/api/restaurant/:id', function (req, res) {
         },
         currentOrders: [],
         pastOrders: [],
+        menuID: newMenu._id,
         priceRange: req.body.priceRange
     })
+
     Promise.all([
         newRestaurant.save(),
         newMenu.save(),
-        Restaurant.findOneAndUpdate({Restaurant: newRestaurant._id}, { $set: { menuID: newMenu._id }}),
         Owner.findOneAndUpdate({baseUserId: ownerId}, { $push: { restaurants: newRestaurant._id } })
     ])
         .then(() => {
@@ -102,20 +103,21 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
         })
 })
 
-// router.get('/api/restaurant/getall', function(req, res) {
-//     Restaurant.find({})
-// 		.then(restaurants => {
-// 			res.send({
-// 				message: "Successfully get all restaurants",
-// 				data: restaurants
-// 			})
-// 		})
-// 		.catch(err => {
-// 			res.send({
-// 				message: "Get all restaurants failed",
-// 				data: err.message
-// 			})
-// 		})
-// })
+//Gets all restaurants from Database for user home
+router.get('/api/find-restaurants', function (req, res) {
+    Restaurant.find()
+		.then(restaurants => {
+			res.send({
+				message: "Successfully get all restaurants",
+				data: restaurants
+			})
+		})
+		.catch(err => {
+			res.send({
+				message: "Get all restaurants failed",
+				data: err.message
+			})
+		})
+})
 
 module.exports = router;
