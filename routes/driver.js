@@ -6,7 +6,10 @@ const User = require('../models/User');
 // This route creates a driver from the user view --Taylor --testing complete
 /* Says I am already a driver after deleting the driver in mLab */
 router.post('/api/create-driver/:id', function (req, res) {
-    if (Driver.find({ baseUserId: req.params.id })) {
+    const Id = req.params.id;
+    const prev = Driver.find({ baseUserId: Id });
+    console.log(prev);
+    if (prev > 0) {
         res.send({
             message: "You are already a Driver!",
             data: null
