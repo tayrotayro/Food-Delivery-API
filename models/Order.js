@@ -7,7 +7,10 @@ const OrderSchema = new Schema({
         ref: 'address',
         required: true
     },
-    expectedDeliveryTime: { type: Date, required: true },
+    // expectedDeliveryTime: { type: Date, required: true }, 
+    // is this expected delivery time estimated by the restaurant
+    // or the expected delivery time set out by customers?
+    isAccepted: { type: Boolean, required: true },
     orderTime: { type: Date, required: true },
     readyTime: { type: Date, required: false },
     enrouteTime: { type: Date, required: false },
