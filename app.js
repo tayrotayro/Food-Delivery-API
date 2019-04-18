@@ -17,6 +17,7 @@ var authorization = require('./routes/authorization');
 var user = require('./routes/users');
 var restaurant = require('./routes/restaurants');
 var owner = require('./routes/owner');
+var driver = require('./routes/driver');
 
 var app = express();
 
@@ -50,7 +51,7 @@ app.use('/', authorization);
 app.use('/', user);
 app.use('/', restaurant);
 app.use('/', owner);
-
+app.use('/', driver);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

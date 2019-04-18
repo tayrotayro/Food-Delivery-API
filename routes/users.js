@@ -47,6 +47,58 @@ router.post('/api/user', function (req, res) {
 		})
 });
 
+//Get User Profile information --Taylor
+router.get('/api/user/:id', function (req, res) {
+	const userId = req.params.id;
+
+	User.findById(userId)
+		.select('-password')
+		.then(user => {
+			res.send({
+				message: "Profile information retrieved",
+				data: user
+			})
+		})
+		.catch(err => {
+			res.send({
+				message: err.message,
+				data: null
+			})
+		})
+})
+
+//Update user profile information --Taylor
+router.put('/api/user/:id', function (req, res) {
+	if (req.params.id) {
+		const updatedUserInfo = {
+			name: req.body.name,
+			phone: req.body.phone,
+			email: req.body.email
+		}
+
+		User.findByIdAndUpdate(req.params.id, { $set: updatedUserInfo })
+			.then(() => {
+				res.send({
+					message: "Profile information updated!",
+					data: null
+				})
+			})
+			.catch(err => {
+				res.send({
+					message: err.message,
+					data: null
+				})
+			})
+	} else {
+		res.send({
+			message: "pass in valid user Id",
+			data: null
+		})
+	}
+})
+
+// This route is for a User to become a driver
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 	res.send('respond with a resource');
