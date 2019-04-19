@@ -97,6 +97,7 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
         })
 })
 
+//Find all restaurants --Taylor Rotolo
 router.get('/api/restaurant/getall', function(req, res) {
     Restaurant.find({})
 		.then(restaurants => {
