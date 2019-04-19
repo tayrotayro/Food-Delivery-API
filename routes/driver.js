@@ -4,36 +4,39 @@ const Driver = require('../models/Driver');
 const User = require('../models/User');
 
 // This route creates a driver from the user view --Taylor --testing complete
-/* Says I am already a driver after deleting the driver in mLab */
 router.post('/api/create-driver/:id', function (req, res) {
-    const Id = req.params.id;
-    const prev = Driver.find({ baseUserId: Id });
-    console.log(prev);
-    if (prev > 0) {
-        res.send({
-            message: "You are already a Driver!",
-            data: null
-        })
-        
-    } else {
-        const newDriver = new Driver({
-            baseUserId: req.params.id
-        })
-                
-        newDriver.save()
-        .then(newDriver => {
-            res.send({
-                message: "You have successfully become a Driver!",
-                data: newDriver
-            })
-        })
-        .catch(err => {
-            res.send({
-                message: err.message,
-                data: null
-            })
-        })
-    }  
-});
 
+    const newDriver = new Driver({
+        baseUserId: req.params.id,
+        restaurants: []
+    })
+
+    Driver.findOne({ baseUserId: req.params.id })
+        .count()
+        .then(driver => {
+            if (driver > 0) {
+                res.send({
+                    message: "You are already an driver!",
+                    data: null
+                })
+            } else {
+                newDriver.save()
+                    .then(() => {
+                        res.send({
+                            message: "You are now a driver!",
+                            data: driver
+                        })
+                    })
+                    .catch((err) => {
+                        res.send({
+                            message: err.message,
+                            data: null
+                        })
+                    })
+                }
+            })
+
+});
+    
+   
 module.exports = router;
