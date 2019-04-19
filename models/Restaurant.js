@@ -29,6 +29,7 @@ const RestaurantSchema = new Schema({
     phone: { type: String, required: true },
     description: { type: String, required: false },
     hours: { type: WeeklyHourSchema, required: true },
+    priceRange: { type: Number, required: true }, // value of 1 to 4 (dollar signs)
     pictureURL: { type: String, required: false },
     currentOrders: [{
         type: Schema.Types.ObjectId,
@@ -41,9 +42,8 @@ const RestaurantSchema = new Schema({
     menuID: {
         type: Schema.Types.ObjectId,
         ref: 'menu',
-        required: false
+        required: true
     },
-    priceRange: { type: Number, required: true }, // value of 1 to 4 (dollar signs)
     // foodListings: [{
     //     type: Schema.Types.ObjectId,
     //     ref: 'food-listing',

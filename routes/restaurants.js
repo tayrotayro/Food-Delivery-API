@@ -2,9 +2,12 @@ var express = require('express');
 var router = express.Router();
 const Restaurant = require('../models/Restaurant');
 const Owner = require("../models/Owner");
+const Menu = require("../models/Menu");
 
 router.post('/api/restaurant/:id', function (req, res) {
     const ownerId = req.params.id;
+
+    const newMenu = new Menu({})
 
     const newRestaurant = new Restaurant({
         name: req.body.name,
@@ -44,10 +47,13 @@ router.post('/api/restaurant/:id', function (req, res) {
         },
         currentOrders: [],
         pastOrders: [],
+        menuID: newMenu._id,
         priceRange: req.body.priceRange
     })
+
     Promise.all([
         newRestaurant.save(),
+        newMenu.save(),
         Owner.findOneAndUpdate({baseUserId: ownerId}, { $push: { restaurants: newRestaurant._id } })
     ])
         .then(() => {
@@ -97,9 +103,9 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
         })
 })
 
-//Find all restaurants --Taylor Rotolo
-router.get('/api/restaurant/getall', function(req, res) {
-    Restaurant.find({})
+//Gets all restaurants from Database for user home
+router.get('/api/find-restaurants', function (req, res) {
+    Restaurant.find()
 		.then(restaurants => {
 			res.send({
 				message: "Successfully get all restaurants",

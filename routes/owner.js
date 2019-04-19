@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Owner = require('../models/Owner');
 
+//Become an owner from user view --Taylor
 router.post('/api/create-owner/:id', function (req, res) {
 
     const newOwner = new Owner({
