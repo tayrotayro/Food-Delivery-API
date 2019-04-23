@@ -1,39 +1,44 @@
-var express = require('express');
-var router = express.Router();
-const Driver = require('../models/Driver');
-const User = require('../models/User');
+const express = require('express');
+const router = express.Router();
+const Driver = require("../models/Driver");
 
-// This route creates a driver from the user view --Taylor --testing complete
-/* Says I am already a driver after deleting the driver in mLab */
+
 router.post('/api/create-driver/:id', function (req, res) {
-    const Id = req.params.id;
-    const prev = Driver.find({ baseUserId: Id });
-    console.log(prev);
-    if (prev > 0) {
-        res.send({
-            message: "You are already a Driver!",
-            data: null
-        })
-        
-    } else {
-        const newDriver = new Driver({
-            baseUserId: req.params.id
-        })
-                
-        newDriver.save()
-        .then(newDriver => {
-            res.send({
-                message: "You have successfully become a Driver!",
-                data: newDriver
-            })
+
+    const newDriver = new Driver({
+        baseUserId: req.params.id
+    })
+
+    Driver.find({ baseUserId: req.params.id })
+        .count()
+        .then(count => {
+            if (count > 0) {
+                res.send({
+                    message: "You are already an driver!",
+                    data: null
+                })
+            } else {
+                newDriver.save()
+                    .then(() => {
+                        res.send({
+                            message: "Driver succesfully created!",
+                            data: newDriver
+                        });
+                    })
+                    .catch((err) => {
+                        res.send({
+                            message: err.message,
+                            data: null
+                        });
+                    })
+            }
         })
         .catch(err => {
             res.send({
                 message: err.message,
                 data: null
-            })
+            });
         })
-    }  
 });
 
 module.exports = router;

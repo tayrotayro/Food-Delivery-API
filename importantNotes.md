@@ -21,8 +21,8 @@ Alex - My restaurants Tab
 - [x] Get user profile information
 - [x] Update user profile information
 - [x] Updated create owner route and added if statements
-3. Become Driver from User view
-4. Become owner from user view
+- [x] Become Driver from User view
+- [x] Become owner from user view
 5. Update basic restaurant info
 6. Accept order route for restaurant view
 7. Driver accept order route from driver view

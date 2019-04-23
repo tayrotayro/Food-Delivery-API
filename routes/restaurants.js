@@ -54,7 +54,7 @@ router.post('/api/restaurant/:id', function (req, res) {
     Promise.all([
         newRestaurant.save(),
         newMenu.save(),
-        Owner.findOneAndUpdate({baseUserId: ownerId}, { $push: { restaurants: newRestaurant._id } })
+        Owner.findOneAndUpdate({ baseUserId: ownerId }, { $push: { restaurants: newRestaurant._id } })
     ])
         .then(() => {
             res.send({
@@ -106,18 +106,50 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
 //Gets all restaurants from Database for user home
 router.get('/api/find-restaurants', function (req, res) {
     Restaurant.find()
-		.then(restaurants => {
-			res.send({
-				message: "Successfully get all restaurants",
-				data: restaurants
-			})
-		})
-		.catch(err => {
-			res.send({
-				message: "Get all restaurants failed",
-				data: err.message
-			})
-		})
+        .then(restaurants => {
+            res.send({
+                message: "Successfully get all restaurants",
+                data: restaurants
+            })
+        })
+        .catch(err => {
+            res.send({
+                message: "Get all restaurants failed",
+                data: err.message
+            })
+        })
+})
+
+//This route updates a restaurant's basic info --Taylor
+router.put('/api/update-restaurant/:id', function (req, res) {
+    if (req.params.id) {
+        const updatedInfo = {
+            name: req.body.name,
+            address: req.body.address,
+            phone: req.body.phone,
+            description: req.body.description,
+            pictureURL: req.body.pictureURL
+        }
+
+        Restaurant.findByIdAndUpdate(req.params.id, { $set: updatedInfo })
+            .then(() => {
+                res.send({
+                    message: "Restaurant info sucessfully updated!",
+                    data: null
+                })
+            })
+            .catch(err => {
+                res.send({
+                    message: err.message,
+                    data: null
+                })
+            })
+    } else {
+        res.send({
+            message: "Pass in a valid restaurant ID!",
+            data: null
+        })
+    }
 })
 
 module.exports = router;
