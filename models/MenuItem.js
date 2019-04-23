@@ -1,23 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const IndividualOptionSchema = new Schema({
+const CustomizationOptionSchema = new Schema({
     name: { type: String, required: true },
     price: { type: Number, required: false }
 })
 
 const CustomizationSchema = new Schema({
     title: { type: String, required: true },
-    options: [IndividualOptionSchema]
+    isRequired: { type: Boolean, required: true },
+    canChooseMultiple: { type: Boolean, required: true },
+    options: [CustomizationOptionSchema]
 })
 
 const MenuItemSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
-    price: { type: Number, required: true },
+    basePrice: { type: Number, required: true },
     pictureUrl: { type: String, required: false },
     customization: [CustomizationSchema],
-    extras: [IndividualOptionSchema]
 })
 
 const MenuItem = mongoose.model('menu-item', MenuItemSchema);
