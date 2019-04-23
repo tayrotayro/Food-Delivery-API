@@ -12,6 +12,8 @@ const OrderSchema = new Schema({
     // or the expected delivery time set out by customers?
     isAccepted: { type: Boolean, required: true },
     orderTime: { type: Date, required: true },
+    acceptTime: { type: Date, required: false },
+    rejectTime: { type: Date, required: false },
     readyTime: { type: Date, required: false },
     enrouteTime: { type: Date, required: false },
     actualDeliveryTime: { type: Date, required: false },
