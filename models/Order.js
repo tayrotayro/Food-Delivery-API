@@ -30,7 +30,6 @@ const OrderSchema = new Schema({
         ref: 'cart',
         required: true
     },
-    totalPrice: { type: Number, required: true },
     tip: { type: Number, required: false }
 })
 

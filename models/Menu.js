@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
-    name: { type: String, required: false },
-    categoryDescription: { type: String, required: false },
+    name: { type: String, required: true },
     items: [{
         type: Schema.Types.ObjectId,
         ref: 'menu-item',
@@ -11,7 +10,6 @@ const CategorySchema = new Schema({
 })
 
 const MenuSchema = new Schema({
-    menuDescription: { type: String, required: false },
     categories: [CategorySchema]
 })
 

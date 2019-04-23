@@ -1,23 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const SelectedOptionSchema = new Schema({
-    name: { type: String, required: true },
-    price: { type: Number, required: false }
-})
-
 const ItemInCartSchema = new Schema({
     menuItemId: {
         type: Schema.Types.ObjectId,
         ref: 'menu-item',
         required: true
     },
-    selectedOptions: [SelectedOptionSchema],
-    specialInstructions: { type: String, required: false }
+    selectedOptions: [{ type: String, require: false }],
+    specialInstructions: { type: String, required: false },
+    quantity: { type: Number, required: true },
+    total: { type: Number, required: true }
 })
 
 const CartSchema = new Schema({
-    items: [ItemInCartSchema]
+    items: [ItemInCartSchema],
+    cartTotal: { type: Number, required: false }
 })
 
 const Cart = mongoose.model('cart', CartSchema);
