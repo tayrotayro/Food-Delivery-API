@@ -23,7 +23,7 @@ Alex - My restaurants Tab
 - [x] Updated create owner route and added if statements
 - [x] Become Driver from User view
 - [x] Become owner from user view
-5. Update basic restaurant info
+- [x] Update basic restaurant info
 6. Accept order route for restaurant view
 7. Driver accept order route from driver view
 8. Update ready to be picked up time from restaurant view
