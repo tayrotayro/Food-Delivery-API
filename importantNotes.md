@@ -31,3 +31,17 @@ Alex - My restaurants Tab
 10. Update actual delivery time from driver
 
 
+- [x] Create category menu category and push to specific menu
+
+- [x] create menu-item and push to specific category
+
+- [] create empty cart route
+- [] create address route
+- [] create order route
+- [] create accept or reject route
+- [] create assign to driver route
+- [] create update ready route
+- [] create update en route by driver
+- [] create update delivery time by driver
+- [] create add tips by user
+
