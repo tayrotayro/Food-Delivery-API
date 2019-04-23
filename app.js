@@ -18,6 +18,9 @@ var user = require('./routes/users');
 var restaurant = require('./routes/restaurants');
 var owner = require('./routes/owner');
 var driver = require('./routes/driver');
+var menuCategory = require('./routes/menuCategory');
+var menuItem = require('./routes/menuItem');
+var order = require('./routes/order');
 
 var app = express();
 
@@ -52,6 +55,9 @@ app.use('/', user);
 app.use('/', restaurant);
 app.use('/', owner);
 app.use('/', driver);
+app.use('/', menuCategory);
+app.use('/', menuItem);
+app.use('/', order);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
