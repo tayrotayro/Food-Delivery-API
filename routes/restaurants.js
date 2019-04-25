@@ -4,6 +4,7 @@ const Restaurant = require('../models/Restaurant');
 const Owner = require("../models/Owner");
 const Menu = require("../models/Menu");
 
+//Creates new restaurant --Taylor
 router.post('/api/restaurant/:id', function (req, res) {
     const ownerId = req.params.id;
 

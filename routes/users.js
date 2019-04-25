@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/User');
+const Cart = require('../models/Cart');
 
 
 /* Tayro -- POST Route: create/sign up a new user */
 router.post('/api/user', function (req, res) {
+
 	const newUser = new User({
 		name: req.body.name,
 		phone: req.body.phone,
