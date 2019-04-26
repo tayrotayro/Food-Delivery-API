@@ -22,6 +22,7 @@ var menuCategory = require('./routes/menuCategory');
 var menuItem = require('./routes/menuItem');
 var order = require('./routes/order');
 var cart = require('./routes/cart');
+var address = require('./routes/address');
 
 var app = express();
 
@@ -60,6 +61,7 @@ app.use('/', menuCategory);
 app.use('/', menuItem);
 app.use('/', order);
 app.use('/', cart);
+app.use('/', address)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

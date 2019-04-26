@@ -10,6 +10,14 @@ const BaseUserSchema = new Schema({
     password: { type: String, required: true },
     joinDate: { type: Date, required: true },
     profilePicUrl: { type: String, required: false },
+    cartId: {
+        type: Schema.Types.ObjectId,
+        ref: 'cart'
+    },
+    address: [{
+        type: Schema.Types.ObjectId,
+        ref: 'address'
+    }],
     currentOrders: [{
         type: Schema.Types.ObjectId,
         ref: 'order'

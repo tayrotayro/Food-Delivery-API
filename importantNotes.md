@@ -35,9 +35,14 @@ Alex - My restaurants Tab
 
 - [x] create menu-item and push to specific category
 
+<<<<<<< HEAD
 - [x] get restaurant info
 - [x] create empty cart route
 - [] create address route
+=======
+- [x] create empty cart route
+- [x] create address route
+>>>>>>> a2a55522f0d72842b8c77b98e042924f67818d59
 - [] create order route
 - [] create accept or reject route
 - [] create assign to driver route
