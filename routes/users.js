@@ -6,6 +6,8 @@ const Cart = require('../models/Cart');
 
 /* Tayro -- POST Route: create/sign up a new user */
 router.post('/api/user', function (req, res) {
+	const newCart = new Cart({
+	})
 
 	const newUser = new User({
 		name: req.body.name,
@@ -14,7 +16,8 @@ router.post('/api/user', function (req, res) {
 		password: req.body.password,
 		joinDate: Date.now(),
 		currentOrders: [],
-		pastOrders: []
+		pastOrders: [],
+		cartId: newCart._id
 	})
 
 	User.find({ email: req.body.email })
@@ -26,7 +29,10 @@ router.post('/api/user', function (req, res) {
 					data: null
 				})
 			} else {
-				newUser.save()
+				Promise.all([
+					newUser.save(),
+					newCart.save()
+				])
 					.then(() => {
 						res.send({
 							message: "User succesfully created",

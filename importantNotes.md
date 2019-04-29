@@ -37,16 +37,13 @@ Alex - My restaurants Tab
 - [x] get restaurant info
 - [x] create empty cart route
 - [x] create address route
-- [] create order route
-- [] create accept or reject route
-- [] create assign to driver route
 - [] create update ready route
 - [] create update en route by driver
 - [] create update delivery time by driver
 - [] create add tips by user
 
 # Cart - order system
-1. when you create a new user create a cart assigned to that user
+1. [x] when you create a new user create a cart assigned to that user
 2. add items to that cart when shopping
 3. After user clicks "Place Order", do the following:
     - Create the order

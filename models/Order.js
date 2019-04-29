@@ -16,12 +16,7 @@ const OrderSchema = new Schema({
     rejectTime: { type: Date, required: false },
     readyTime: { type: Date, required: false },
     enrouteTime: { type: Date, required: false },
-    actualDeliveryTime: { type: Date, required: false },
-    customer: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-        required: true
-    },
+    actualDeliveryTime: { type: Date, required: false }, 
     driver: {
         type: Schema.Types.ObjectId,
         ref: 'driver',
