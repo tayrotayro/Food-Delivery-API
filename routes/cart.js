@@ -28,16 +28,10 @@ router.post('/api/cart/', function (req, res) {
 router.put('api/cart/:id', function (req, res) {
     const cartId = req.params.id;
 
-    const cartItem = {
-        menuItemId: req.body.menuItemId,
-        // selectedOptions: req.body.selectedOptions,
-        // specialInstructions: req.body.specialInstructions,
-        quantity: req.body.quantity,
-        total: req.body.total
-    }
-
-    if (cartId) {
-        Cart.findByIdAndUpdate(cartId, { $push: { items: cartItem } })
+    const menuItemId = {menuItemId: req.body.menuItemId};
+  
+   // if (cartId) {
+        Cart.findByIdAndUpdate(cartId, { $push: { items: menuItemId } })
             .then(item => {
                 res.send({
                     message: "Item successfully added to cart",
@@ -50,12 +44,12 @@ router.put('api/cart/:id', function (req, res) {
                     data: null
                 })
             })
-    } else {
+   // } else {
         res.send({
             message: "pass in valid cart Id",
             data: null
         })
-    }
+  //  }
 })
 
 module.exports = router;

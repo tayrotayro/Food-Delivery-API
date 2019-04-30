@@ -44,7 +44,7 @@ Alex - My restaurants Tab
 
 # Cart - order system
 1. [x] when you create a new user create a cart assigned to that user
-2. add items to that cart when shopping
+2. **NEED HELP**add items to that cart when shopping
 3. After user clicks "Place Order", do the following:
     - Create the order
     - Create the transaction
@@ -61,3 +61,4 @@ Alex - My restaurants Tab
     driver = null
 - create route that finds all open restaurants 
 - create a route for a search algorithm
+- route that pull all menu items on a menu

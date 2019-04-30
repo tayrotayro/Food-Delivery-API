@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const MenuSchema = new Schema({
-    categories: [{
+    Items: [{
         type: Schema.Types.ObjectId,
-        ref: 'menu-category'
+        ref: 'menu-item'
     }]
 })
 
