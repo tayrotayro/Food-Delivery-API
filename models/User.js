@@ -12,7 +12,8 @@ const BaseUserSchema = new Schema({
     profilePicUrl: { type: String, required: false },
     cartId: {
         type: Schema.Types.ObjectId,
-        ref: 'cart'
+        ref: 'cart',
+        required: true
     },
     address: [{
         type: Schema.Types.ObjectId,

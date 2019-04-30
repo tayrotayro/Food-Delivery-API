@@ -4,16 +4,12 @@ var moment = require('moment');
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Restaurant = require('../models/Restaurant');
+const Transaction = require('../models/Transaction');
+const Cart = require("../models/Cart");
 
 
-//Creates an order from user view --Taylor
+//Creates an order from user view --Taylor **NOT TESTED**
 router.post('/api/order/', function (req, res) {
-    //Create a new cart for every order
-    const newCart = new Cart({
-        total: req.body.total,
-
-    })
-
     const restaurantId = req.body.restaurantId;
     const userId = req.body.userId;
 
@@ -25,6 +21,19 @@ router.post('/api/order/', function (req, res) {
         cartId: req.body.cartId
     })
 
+    const newTransaction = new Transaction({
+        orderId: req.body.orderId,
+        cardNumber: req.body.cardNumber,
+        expMonth: req.body.expMonth,
+        expYear: req.body.expYear,
+        ccv: req.body.ccv,
+        billingAddress: req.body.billingAddress
+    })
+
+    const newCart = new Cart({
+
+    })
+
     if (!restaurantId || !userId) {
         res.send({
             error: "missing restaurant Id or userId!",
@@ -34,8 +43,10 @@ router.post('/api/order/', function (req, res) {
 
         Promise.all([
             newOrder.save(),
+            newTransaction.save(),
             User.findByIdAndUpdate(userId, { $push: { currentOrders: newOrder._id } }),
-            Restaurant.findByIdAndUpdate(restaurantId, { $push: { currentOrders: newOrder._id } })
+            Restaurant.findByIdAndUpdate(restaurantId, { $push: { currentOrders: newOrder._id } }),
+            User.findByIdAndUpdate(userId, { $set: { cartId: newCart._id } })
         ])
             .then(() => {
                 res.send({

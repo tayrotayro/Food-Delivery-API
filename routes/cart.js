@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const Cart = require('../models/Cart');
 
-router.post('/api/cart', function (req, res) {
+// This route creates an empty cart  NOT IN USE
+router.post('/api/cart/', function (req, res) {
     const newCart = new Cart({
         quantity: req.body.quantity,
         total: req.body.total,
@@ -23,29 +24,32 @@ router.post('/api/cart', function (req, res) {
         })
 })
 
-//This route adds an item to cart while shopping
-router.get('api/cart/:id', function(req, res) {
+//This route adds a menu item to cart --Tayro
+router.put('api/cart/:id', function (req, res) {
     const cartId = req.params.id;
 
-    // const orderPlaced = {
-    //     menuItemId: req.body.menuItemId,
-    //     quantity: req.body.quantity,
-    //     total: req.body.total
-    // }
-
-    Cart.findOne({_id: req.params.id})
-        .then(found => {
-            res.send({
-                message: "order succesfully added to cart!",
-                data: found
+    const menuItemId = {menuItemId: req.body.menuItemId};
+  
+   // if (cartId) {
+        Cart.findByIdAndUpdate(cartId, { $push: { items: menuItemId } })
+            .then(item => {
+                res.send({
+                    message: "Item successfully added to cart",
+                    data: item
+                })
             })
-        })
-        .catch(err => {
-            res.send({
-                error: err.message,
-                data: null
+            .catch(err => {
+                res.send({
+                    error: err.message,
+                    data: null
+                })
             })
+   // } else {
+        res.send({
+            message: "pass in valid cart Id",
+            data: null
         })
+  //  }
 })
 
 module.exports = router;

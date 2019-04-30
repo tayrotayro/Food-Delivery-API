@@ -18,7 +18,7 @@ const MenuItemSchema = new Schema({
     description: { type: String, required: true },
     basePrice: { type: Number, required: true },
     pictureUrl: { type: String, required: false },
-    customization: [CustomizationSchema],
+    //customization: [CustomizationSchema],
 })
 
 const MenuItem = mongoose.model('menu-item', MenuItemSchema);
