@@ -45,18 +45,19 @@ Alex - My restaurants Tab
 # Cart - order system
 1. [x] when you create a new user create a cart assigned to that user
 2. **NEED HELP**add items to that cart when shopping
-3. After user clicks "Place Order", do the following:
+3. [NT] After user clicks "Place Order", do the following:
     - Create the order
     - Create the transaction
     - Push order to current order list of **User** and **Restaurant**
     - Create another empty cart and assign it to user 
-4. create 2 seperate routes, accept and reject routes by restaurant
+4. [NT] create 2 seperate routes, accept and reject routes by restaurant
     - implement moment for accept and reject time
 5. Create route for driver to accept order
 
 
 # Other Important routes
-- create route that finds all available upon componentDidMount      on driver home where:
+- [x] a route that finds all menu items on menu
+- create route that finds all available orders upon componentDidMount      on driver home where:
     isAccepted = true
     driver = null
 - create route that finds all open restaurants 
