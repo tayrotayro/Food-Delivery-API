@@ -64,38 +64,13 @@ router.post('/api/order/', function (req, res) {
 })
 
 
-//This route defines weather an order is accepted or rejected --Taylor
-router.put('/api/accept-reject/:id', function (req, res) {
-    const orderId = req.params.id;
-
-    const updatedOrder = {
-        isAccepted: req.body.isAccepted
-    }
-    
-    if (req.params.id) {
-        Order.findByIdAndUpdate(orderId, { $set: updatedOrder })
-            .then(order => {
-                res.send({
-                    message: "Order sucessfully accepted!",
-                    data: order
-                })
-            })
-            .catch(err => {
-                res.send({
-                    error: err.message,
-                    data: null
-                })
-            })
-    }
-
-})
-
 //This route accepts an order 
 router.put('api/isAccepted/:id', function (req, res) {
     const orderId = req.params.id;
 
     const updateAccepted = {
-        isAccepted: req.body.isAccepted
+        isAccepted: true,
+        acceptTime: moment()
     }
 
     Order.findByIdAndUpdate(orderId, { $set: { isAccepted: updateAccepted }})
@@ -118,14 +93,15 @@ router.put('api/isDeclined/:id', function(req, res) {
     const orderId = req.params.id;
 
     const updateDeclined = {
-        isAccepted: req.body.isAccepted
+        isAccepted: false,
+        rejectTime: moment()
     }
 
-    Order.findByIdAndUpdate(orderId, { $set: { isAccepted: updateAccepted }})
-    .then(accepted => {
+    Order.findByIdAndUpdate(orderId, { $set: { isAccepted: updateDeclined }})
+    .then(declined => {
         res.send({
             message: "the order has been accepted!",
-            data: accepted
+            data: declined
         })
     })
     .catch(err => {
@@ -134,6 +110,23 @@ router.put('api/isDeclined/:id', function(req, res) {
             data: null
         })
     })
+})
+
+//This route finds all available orders where isAccepted = true and driver = null
+router.get('/api/available-orders', function (req, res) {
+    Order.find({ isAccepted: true }, { driver: null })
+        .then(response => {
+            res.send({
+                message: "Successfully found all orders",
+                data: response
+            })
+        })
+        .catch(err => {
+            res.send({
+                error: err.message,
+                data: null
+            })
+        })
 })
 
 

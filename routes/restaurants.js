@@ -106,7 +106,7 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
 
 //Gets all restaurants from Database for user home
 router.get('/api/find-restaurants', function (req, res) {
-    Restaurant.find()
+    Restaurant.find({})
         .then(restaurants => {
             res.send({
                 message: "Successfully get all restaurants",

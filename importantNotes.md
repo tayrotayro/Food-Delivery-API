@@ -41,6 +41,7 @@ Alex - My restaurants Tab
 - [] create update en route by driver
 - [] create update delivery time by driver
 - [] create add tips by user
+- [NT] pulls all active orders to driver active order view for him to accept
 
 # Cart - order system
 1. [x] when you create a new user create a cart assigned to that user
@@ -52,14 +53,20 @@ Alex - My restaurants Tab
     - Create another empty cart and assign it to user 
 4. [NT] create 2 seperate routes, accept and reject routes by restaurant
     - implement moment for accept and reject time
-5. Create route for driver to accept order
+5. [NT] Create route for driver to accept order
+    - push order Id to driver active
+    - push driver id to order driver
+    - 
 
 
 # Other Important routes
 - [x] a route that finds all menu items on menu
-- create route that finds all available orders upon componentDidMount      on driver home where:
+- [NT] create route that finds all available orders upon           componentDidMount on driver home where:
     isAccepted = true
     driver = null
+- [NT] create a route that finds all info on the driver         (active order && past orders)
+- [NT] delete menu item from menu
+- [NT] delete menu item from cart
 - create route that finds all open restaurants 
 - create a route for a search algorithm
-- route that pull all menu items on a menu
+

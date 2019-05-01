@@ -25,17 +25,50 @@ router.post('/api/cart/', function (req, res) {
 })
 
 //This route adds a menu item to cart --Tayro
-router.put('api/cart/:id', function (req, res) {
+router.put('api/add-to-cart/:id', function (req, res) {
     const cartId = req.params.id;
 
-    const menuItemId = {menuItemId: req.body.menuItemId};
-  
-   // if (cartId) {
-        Cart.findByIdAndUpdate(cartId, { $push: { items: menuItemId } })
-            .then(item => {
+    const menuItemId = { menuItemId: req.body.menuItemId };
+
+    // if (cartId) {
+    Cart.findByIdAndUpdate(cartId, { $push: { items: menuItemId } })
+        .then(item => {
+            res.send({
+                message: "Item successfully added to cart",
+                data: item
+            })
+        })
+        .catch(err => {
+            res.send({
+                error: err.message,
+                data: null
+            })
+        })
+    // } else {
+    res.send({
+        message: "pass in valid cart Id",
+        data: null
+    })
+    //  }
+})
+
+
+//This route deletes a menu item from cart --Taylor
+router.put('/api/delete-from-cart/:id', function (req, res) {
+    const cartId = req.params.id;
+    const itemId = req.body.id;
+
+    if (!cartId || !itemId) {
+        res.send({
+            error: "Please pass in a valid cart or item Id!",
+            data: null
+        })
+    } else {
+        Cart.findByIdAndUpdate(cartId, { $pull: { menuItemId: itemId } })
+            .then(response => {
                 res.send({
-                    message: "Item successfully added to cart",
-                    data: item
+                    message: "succesfully removed item from cart!",
+                    data: null
                 })
             })
             .catch(err => {
@@ -44,12 +77,8 @@ router.put('api/cart/:id', function (req, res) {
                     data: null
                 })
             })
-   // } else {
-        res.send({
-            message: "pass in valid cart Id",
-            data: null
-        })
-  //  }
+    }
+   
 })
 
 module.exports = router;
