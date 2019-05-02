@@ -17,7 +17,7 @@ router.post('/api/menu-item', function (req, res) {
     })
     Promise.all([
         newMenuItem.save(),
-        Menu.findByIdAndUpdate(menuId, { $push: { Items: newMenuItem._id } })
+        Menu.findByIdAndUpdate(menuId, { $push: { items: newMenuItem._id } })
     ])
         .then(item => {
             res.send({
@@ -38,6 +38,7 @@ router.post('/api/menu-item', function (req, res) {
 router.get('/api/menu-item/:id', function (req, res) {
     const menuId = req.params.id;
     Menu.findById(menuId)
+        .populate('items')
         .then( response => {
             res.send({
                 message: "Menu Items succesfully found!",
