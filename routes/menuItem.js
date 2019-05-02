@@ -54,8 +54,14 @@ router.get('/api/menu-item/:id', function (req, res) {
 })
 
 //This route deletes a menu item --Taylor
-router.delete('api/menu-item/:id', function (req, res) {
-    MenuItem.findByIdAndDelete(req.params.id)
+router.put('api/delete-item/:id', function (req, res) {
+    const menuItemId = req.params.id;
+    const menuId = req.body.menuId;
+
+    Promise.all([
+        MenuItem.findByIdAndDelete(menuItemId),
+        Menu.findByIdAndUpdate(menuId, { $pull: { items: menuItemId }})
+    ])
         .then(response => {
             res.send({
                 message: "Succesfully deleted item!",
