@@ -46,7 +46,7 @@ router.post('/api/order', function (req, res) {
 
     })
 
-    if (!restaurantId || !userId) {
+    if (!userId) {
         res.send({
             error: "missing restaurant Id or userId!",
             data: null
@@ -58,7 +58,7 @@ router.post('/api/order', function (req, res) {
             newAddress.save(),
             newTransaction.save(),
             User.findByIdAndUpdate(userId, { $push: { currentOrders: newOrder._id } }),
-            Restaurant.findByIdAndUpdate(restaurantId, { $push: { currentOrders: newOrder._id } }),
+            // Restaurant.findByIdAndUpdate(restaurantId, { $push: { currentOrders: newOrder._id } }),
             User.findByIdAndUpdate(userId, { $set: { cartId: newCart._id } })
         ])
             .then(() => {
