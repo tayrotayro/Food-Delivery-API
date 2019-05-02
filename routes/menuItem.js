@@ -12,17 +12,17 @@ router.post('/api/menu-item', function (req, res) {
         name: req.body.name,
         description: req.body.description,
         basePrice: req.body.basePrice,
-        pictureURL: req.body.pictureURL,
+        pictureUrl: req.body.pictureUrl,
         //customization: req.body.customization
     })
     Promise.all([
         newMenuItem.save(),
-        Menu.findByIdAndUpdate(categoryId, { $push: { items: newMenuItem._id } })
+        Menu.findByIdAndUpdate(menuId, { $push: { Items: newMenuItem._id } })
     ])
-        .then(() => {
+        .then(item => {
             res.send({
                 message: "Menu Item successfully created",
-                data: newMenuItem
+                data: item
             })
         })
         .catch(err => {
@@ -68,5 +68,33 @@ router.delete('api/menu-item/:id', function (req, res) {
             })
         })
 })
+
+
+//This route updates menu items
+router.put('/api/menu-item/:id', function (req, res) {
+    const menuItemId = req.params.id;
+
+    const updatedMenuItem = {
+        name: req.body.name,
+        description: req.body.description,
+        basePrice: req.body.basePrice,
+        pictureUrl: req.body.pictureUrl
+    }
+
+    MenuItem.findByIdAndUpdate(menuItemId, { $set: updatedMenuItem }  )
+        .then(response => {
+            res.send({
+                message: "Menu Item succesfully updated!",
+                data: response
+            })
+        })
+        .catch(err => {
+            res.send({
+                error: err.message,
+                data: null
+            })
+        })
+})
+
 
 module.exports = router;

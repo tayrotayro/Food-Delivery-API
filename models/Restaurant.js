@@ -39,7 +39,7 @@ const RestaurantSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'order'
     }],
-    menuID: {
+    menuId: {
         type: Schema.Types.ObjectId,
         ref: 'menu',
         required: true

@@ -11,11 +11,11 @@ const TransactionSchema = new Schema({
     expMonth: { type: String, required: true },
     expYear: { type: String, required: true },
     ccv: { type: String, required: true },
-    billingAddress: {
-        type: Schema.Types.ObjectId,
-        ref: 'address',
-        require: true
-    }
+    // billingAddress: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'address',
+    //     require: true
+    // }
 })
 
 const Transaction = mongoose.model('transaction', TransactionSchema);

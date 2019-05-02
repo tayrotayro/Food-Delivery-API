@@ -24,14 +24,12 @@ router.post('/api/cart/', function (req, res) {
         })
 })
 
-//This route adds a menu item to cart --Tayro
-router.put('api/add-to-cart/:id', function (req, res) {
+//This route updates and removes a menu item from cart --Tayro
+router.put('/api/update-cart/:id', function (req, res) {
     const cartId = req.params.id;
+    const updatedItems = req.body.updatedItems;
 
-    const menuItemId = { menuItemId: req.body.menuItemId };
-
-    // if (cartId) {
-    Cart.findByIdAndUpdate(cartId, { $push: { items: menuItemId } })
+    Cart.findByIdAndUpdate(cartId, { $set: { items: updatedItems } })
         .then(item => {
             res.send({
                 message: "Item successfully added to cart",
@@ -44,14 +42,34 @@ router.put('api/add-to-cart/:id', function (req, res) {
                 data: null
             })
         })
-    // } else {
-    res.send({
-        message: "pass in valid cart Id",
-        data: null
-    })
-    //  }
+   
 })
 
+//This route adds a menu item to cart --Taylor
+router.put('/api/add-to-cart/:id', function (req, res) {
+    const cartId = req.params.id;
+
+    const newItem = {
+        menuItemId: req.body.menuItemId,
+        specialInstructions: req.body.specialInstructions,
+        quantity: req.body.quantity,
+        total: req.body.total
+    }
+
+    Cart.findByIdAndUpdate(cartId, { $push: { items: newItem }})
+        .then(response => {
+            res.send({
+                message: "Item succesfully added to cart!",
+                data: response
+            })
+        })
+        .catch(err => {
+            res.send({
+                error: err.message,
+                data: null
+            })
+        })
+})
 
 //This route deletes a menu item from cart --Taylor
 router.put('/api/delete-from-cart/:id', function (req, res) {

@@ -3,6 +3,8 @@ var router = express.Router();
 const Address = require('../models/Address');
 const User = require('../models/User');
 
+
+//This route creates a new address --Taylor
 router.post('/api/address', function (req, res) {
     const userId = req.body.userId;
 

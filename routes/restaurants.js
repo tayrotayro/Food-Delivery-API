@@ -48,7 +48,7 @@ router.post('/api/restaurant/:id', function (req, res) {
         },
         currentOrders: [],
         pastOrders: [],
-        menuID: newMenu._id,
+        menuId: newMenu._id,
         priceRange: req.body.priceRange
     })
 
@@ -71,7 +71,7 @@ router.post('/api/restaurant/:id', function (req, res) {
         })
 })
 
-/* Get restaurants associated with an owner */
+// Get restaurants associated with an owner --Taylor 
 router.get('/api/restaurant/:baseUserId', function (req, res) {
     const baseUserId = req.params.baseUserId;
 
@@ -104,8 +104,8 @@ router.get('/api/restaurant/:baseUserId', function (req, res) {
         })
 })
 
-//Gets all restaurants from Database for user home
-router.get('/api/find-restaurants', function (req, res) {
+//Gets all restaurants from Database for user home --Taylor
+router.get('/api/restaurant', function (req, res) {
     Restaurant.find({})
         .then(restaurants => {
             res.send({
@@ -153,7 +153,7 @@ router.put('/api/restaurant-info/:id', function (req, res) {
     }
 })
 
-//This route pull the user info from the database --Taylor 
+//This route pulls a specific restaurant's info from the database --Taylor 
 router.get('/api/restaurant-info/:id', function (req, res) {
     const restaurantId = req.params.id;
 

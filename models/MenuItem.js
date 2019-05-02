@@ -18,7 +18,7 @@ const MenuItemSchema = new Schema({
     description: { type: String, required: true },
     basePrice: { type: Number, required: true },
     pictureUrl: { type: String, required: false },
-    specialInstructions: { type: String, required: false }
+    //specialInstructions: { type: String, required: false }
     //customization: [CustomizationSchema]
 })
 

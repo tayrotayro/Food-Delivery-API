@@ -16,13 +16,13 @@ const OrderSchema = new Schema({
     rejectTime: { type: Date, required: false },
     readyTime: { type: Date, required: false },
     enrouteTime: { type: Date, required: false },
-    actualDeliveryTime: { type: Date, required: false }, 
+    deliveredTime: { type: Date, required: false }, 
     driver: {
         type: Schema.Types.ObjectId,
         ref: 'driver',
         required: false
     },
-    cartID: {
+    cartId: {
         type: Schema.Types.ObjectId,
         ref: 'cart',
         required: true

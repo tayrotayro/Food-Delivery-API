@@ -31,12 +31,13 @@ Alex - My restaurants Tab
 10. Update actual delivery time from driver
 
 
-- [x] Create category menu category and push to specific menu
 
-- [x] create menu-item and push to specific category
-- [x] get restaurant info
-- [x] create empty cart route
-- [x] create address route
+- [T] post menu-item and push to specific menu
+- [T] put menu item
+- [T] get restaurants associated with an owner
+- [T] get all restaurants
+- [T] get a single restaurant's info
+- [T] post address route
 - [] create update ready route
 - [] create update en route by driver
 - [] create update delivery time by driver
@@ -70,3 +71,15 @@ Alex - My restaurants Tab
 - create route that finds all open restaurants 
 - create a route for a search algorithm
 
+
+
+
+# Order System Test
+1. User - add menu item to cart **TESTED**
+2. User - place order **TESTED**
+3. Restaurant - accept order **TESTED**
+4. Driver - pull accepted orders without a driver **TESTED**
+5. Driver - accept order **TESTED**
+6. Restaurant - ready for pickup(ready time) **TESTED**
+7. Driver - enroute (enroute time) **TESTED**
+8. Driver - Delivrd (Actual delivery Time)

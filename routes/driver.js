@@ -43,13 +43,16 @@ router.post('/api/driver/:id', function (req, res) {
 });
 
 
-//This pulls all available orders that have been accepted by restaurant --Taylor
-router.get('api/available-driver', function (req, res) {
-    Order.find({ isAccepted: true })
-        .then(order => {
+/*This route finds all available orders where isAccepted = true and driver = null
+for the driver to accept --Taylor */
+
+router.get('/api/driver/available-orders', function (req, res) {
+
+    Order.find({ isAccepted: true, driver: null })
+        .then(response => {
             res.send({
-                message: "All active orders are found!",
-                data: order
+                message: "Successfully found all orders",
+                data: response
             })
         })
         .catch(err => {
@@ -101,6 +104,6 @@ router.get('/api/active-driver/:id', function (req, res) {
         })
 })
 
-//This route allows a 
+
 
 module.exports = router;
