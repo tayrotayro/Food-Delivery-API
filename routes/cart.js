@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Cart = require('../models/Cart');
+const User = require('../models/User');
 
 // This route gets a cart
 router.get('/api/cart/:id', function (req, res) {
@@ -9,6 +10,32 @@ router.get('/api/cart/:id', function (req, res) {
             res.send({
                 message: "Cart successfully retrieved",
                 data: cart
+            })
+        })
+        .catch(err => {
+            res.send({
+                message: err.message,
+                data: null
+            });
+        })
+})
+
+// Create an empty cart and assign to user
+router.post('/api/cart/reset', function (req, res) {
+    const userId = req.body.userId;
+
+    const newCart = new Cart({
+        items: []
+    })
+
+    Promise.all([
+        newCart.save(),
+        User.findByIdAndUpdate(userId, { $set: { cartId: newCart._id } })
+    ])
+        .then(() => {
+            res.send({
+                message: "Cart successfully reset",
+                data: newCart._id
             })
         })
         .catch(err => {
