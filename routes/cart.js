@@ -2,6 +2,23 @@ var express = require('express');
 var router = express.Router();
 const Cart = require('../models/Cart');
 
+// This route gets a cart
+router.get('/api/cart/:id', function (req, res) {
+    Cart.findById(req.params.id)
+        .then(cart => {
+            res.send({
+                message: "Cart successfully retrieved",
+                data: cart
+            })
+        })
+        .catch(err => {
+            res.send({
+                message: err.message,
+                data: null
+            });
+        })
+})
+
 // This route creates an empty cart  NOT IN USE
 router.post('/api/cart/', function (req, res) {
     const newCart = new Cart({
@@ -42,7 +59,7 @@ router.put('/api/update-cart/:id', function (req, res) {
                 data: null
             })
         })
-   
+
 })
 
 //This route adds a menu item to cart --Taylor
@@ -56,7 +73,7 @@ router.put('/api/add-to-cart/:id', function (req, res) {
         total: req.body.total
     }
 
-    Cart.findByIdAndUpdate(cartId, { $push: { items: newItem }})
+    Cart.findByIdAndUpdate(cartId, { $push: { items: newItem } })
         .then(response => {
             res.send({
                 message: "Item succesfully added to cart!",
@@ -96,7 +113,7 @@ router.put('/api/delete-from-cart/:id', function (req, res) {
                 })
             })
     }
-   
+
 })
 
 module.exports = router;

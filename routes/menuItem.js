@@ -5,6 +5,23 @@ const MenuCategory = require('../models/MenuCategory');
 const Menu = require('../models/Menu');
 
 
+// this route get a menu item
+router.get('/api/menu-item/get/:id', function (req, res) {
+    MenuItem.findById(req.params.id)
+        .then(menuItem => {
+            res.send({
+                message: "Menu Item successfully retrieved",
+                data: menuItem
+            })
+        })
+        .catch(err => {
+            res.send({
+                error: err.message,
+                data: null
+            })
+        })
+})
+
 // This item creates a menu item --Tayro
 router.post('/api/menu-item', function (req, res) {
     const menuId = req.body.menuId;
@@ -39,7 +56,7 @@ router.get('/api/menu-item/:id', function (req, res) {
     const menuId = req.params.id;
     Menu.findById(menuId)
         .populate('items')
-        .then( response => {
+        .then(response => {
             res.send({
                 message: "Menu Items succesfully found!",
                 data: response
@@ -60,7 +77,7 @@ router.put('/api/delete-item/:id', function (req, res) {
 
     Promise.all([
         MenuItem.findByIdAndDelete(menuItemId),
-        Menu.findByIdAndUpdate(menuId, { $pull: { items: menuItemId }})
+        Menu.findByIdAndUpdate(menuId, { $pull: { items: menuItemId } })
     ])
         .then(response => {
             res.send({
@@ -88,7 +105,7 @@ router.put('/api/menu-item/:id', function (req, res) {
         pictureUrl: req.body.pictureUrl
     }
 
-    MenuItem.findByIdAndUpdate(menuItemId, { $set: updatedMenuItem }  )
+    MenuItem.findByIdAndUpdate(menuItemId, { $set: updatedMenuItem })
         .then(response => {
             res.send({
                 message: "Menu Item succesfully updated!",
