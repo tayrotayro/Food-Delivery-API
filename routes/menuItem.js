@@ -54,7 +54,7 @@ router.get('/api/menu-item/:id', function (req, res) {
 })
 
 //This route deletes a menu item --Taylor
-router.put('api/delete-item/:id', function (req, res) {
+router.put('/api/delete-item/:id', function (req, res) {
     const menuItemId = req.params.id;
     const menuId = req.body.menuId;
 
