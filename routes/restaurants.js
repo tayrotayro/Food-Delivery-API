@@ -129,6 +129,7 @@ router.put('/api/restaurant-info/:id', function (req, res) {
             address: req.body.address,
             phone: req.body.phone,
             description: req.body.description,
+            priceRange: req.body.priceRange,
             pictureURL: req.body.pictureURL
         }
 
