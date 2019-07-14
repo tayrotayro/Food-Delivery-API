@@ -118,18 +118,18 @@ router.put('/api/add-to-cart/:id', function (req, res) {
 //This route deletes a menu item from cart --Taylor
 router.put('/api/delete-from-cart/:id', function (req, res) {
     const cartId = req.params.id;
-    const itemId = req.body.id;
+    const itemInCartId = req.body.itemInCartId;
 
-    if (!cartId || !itemId) {
+    if (!cartId || !itemInCartId) {
         res.send({
             error: "Please pass in a valid cart or item Id!",
             data: null
         })
     } else {
-        Cart.findByIdAndUpdate(cartId, { $pull: { menuItemId: itemId } })
+        Cart.findByIdAndUpdate(cartId, { $pull: { items: { _id: itemInCartId } } })
             .then(response => {
                 res.send({
-                    message: "succesfully removed item from cart!",
+                    message: "Succesfully removed item from cart!",
                     data: null
                 })
             })
